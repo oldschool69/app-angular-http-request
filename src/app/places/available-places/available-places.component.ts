@@ -31,7 +31,7 @@ export class AvailablePlacesComponent implements OnInit {
           return throwError(
             () =>
               new Error(
-                'Something went wrong fetching the avaialble places. Please try again later.'
+                'Something went wrong fetching the available places. Please try again later.'
               )
           );
         })
@@ -51,5 +51,15 @@ export class AvailablePlacesComponent implements OnInit {
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
+  }
+
+  onSelectPlace(place: Place) {
+    this.httpClient
+      .put('http://localhost:3000/user-places', {
+        placeId: place.id,
+      })
+      .subscribe({
+        next: (response) => console.log(response),
+      });
   }
 }
